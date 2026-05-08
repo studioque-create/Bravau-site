@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bravau Auditores — Audit · Accounting · Consulting</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --deep-onyx:   #1A1A1A;
+      --charcoal:    #222222;
+      --surface-dark:#2A2A2A;
+      --gold:        #C9A84C;
+      --gold-muted:  #A8893D;
+      --gold-dim:    #6B5A2A;
+      --white:       #FFFFFF;
+      --off-white:   #F0EDE8;
+      --warm-gray:   #9A9A8A;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--deep-onyx);
+      color: var(--off-white);
+      font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+      font-weight: 300;
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── TYPOGRAPHY ─── */
+    h1, h2, h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-family: "Inter", sans-serif;
+      font-weight: 600;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: var(--deep-onyx);
+      padding: 6px 16px;
+      border-radius: 0;
+      margin-bottom: 24px;
+    }
+
+    /* ─── LAYOUT ─── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section { padding: 100px 0; }
+
+    /* ─── BUTTONS ─── */
+    .btn-primary {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--deep-onyx);
+      font-family: "Inter", sans-serif;
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: 0;
+      border: none;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .btn-primary:hover { background: var(--gold-muted); }
+
+    .btn-ghost {
+      display: inline-block;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: "Inter", sans-serif;
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: 0;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .btn-ghost:hover { background: rgba(201, 168, 76, 0.08); }
+
+    /* ─── NAVIGATION ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--deep-onyx);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-wrap { text-decoration: none; display: flex; align-items: center; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: "Inter", sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: var(--off-white);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links .nav-cta { padding: 10px 24px; }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      padding: 120px 0 100px;
+      background: var(--deep-onyx);
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 55fr 45fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 5vw, 66px);
+      line-height: 1.05;
+      margin-bottom: 28px;
+    }
+
+    .hero-lead {
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: 19px;
+      color: var(--off-white);
+      line-height: 1.5;
+      margin-bottom: 40px;
+    }
+
+    .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+
+    .hero-cert {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(201, 168, 76, 0.3);
+      font-family: "Inter", sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      color: var(--warm-gray);
+      letter-spacing: 0.1em;
+    }
+
+    /* Concentric diamond motif */
+    .hero-visual {
+      position: relative;
+      height: 440px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .diamonds {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 0;
+      height: 0;
+    }
+
+    .diamond {
+      position: absolute;
+      border: 1px solid var(--gold-dim);
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+    .diamond:nth-child(1) { width:  70px; height:  70px; opacity: 0.75; border-color: var(--gold); }
+    .diamond:nth-child(2) { width: 130px; height: 130px; opacity: 0.65; }
+    .diamond:nth-child(3) { width: 190px; height: 190px; opacity: 0.55; }
+    .diamond:nth-child(4) { width: 255px; height: 255px; opacity: 0.45; }
+    .diamond:nth-child(5) { width: 320px; height: 320px; opacity: 0.35; }
+    .diamond:nth-child(6) { width: 385px; height: 385px; opacity: 0.25; }
+    .diamond:nth-child(7) { width: 450px; height: 450px; opacity: 0.15; }
+
+    .hero-kpi {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    .hero-kpi-num {
+      font-family: Georgia, serif;
+      font-weight: 700;
+      font-size: 88px;
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+    }
+    .hero-kpi-label {
+      font-family: "Inter", sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      color: var(--warm-gray);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 10px;
+      display: block;
+    }
+
+    /* ─── CREDENTIALS BAR ─── */
+    .cred-bar {
+      background: var(--charcoal);
+      border-top: 1px solid rgba(201, 168, 76, 0.25);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.25);
+      padding: 20px 24px;
+      text-align: center;
+    }
+    .cred-bar p {
+      font-family: "Inter", sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      color: var(--warm-gray);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ─── METRICS ─── */
+    .metrics-section {
+      background: var(--deep-onyx);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+    }
+
+    .section-header { margin-bottom: 72px; }
+    .section-header h2 { font-size: clamp(30px, 4vw, 50px); }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+
+    .metric-item {
+      padding: 0 48px 0 0;
+    }
+    .metric-item + .metric-item {
+      padding-left: 48px;
+      border-left: 1px solid rgba(201, 168, 76, 0.2);
+    }
+
+    .metric-num {
+      font-family: Georgia, serif;
+      font-weight: 700;
+      font-size: 64px;
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+    }
+    .metric-lbl {
+      font-family: "Inter", sans-serif;
+      font-weight: 600;
+      font-size: 11px;
+      color: var(--warm-gray);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 12px;
+      display: block;
+    }
+    .metric-desc {
+      font-size: 15px;
+      color: var(--off-white);
+      margin-top: 14px;
+      line-height: 1.6;
+    }
+
+    /* ─── PROBLEM / SOLUTION ─── */
+    .problem-section { background: var(--charcoal); }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .col-divider { border-left: 1px solid rgba(201, 168, 76, 0.3); padding-left: 80px; }
+
+    .section-h2 {
+      font-size: clamp(26px, 3.2vw, 42px);
+      margin-bottom: 24px;
+      line-height: 1.15;
+    }
+
+    .body-p {
+      font-size: 17px;
+      color: var(--off-white);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    /* ─── SERVICES ─── */
+    .services-section { background: var(--deep-onyx); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 24px;
+    }
+
+    .svc-card {
+      background: var(--charcoal);
+      border-top: 3px solid var(--gold);
+      border-radius: 0;
+      padding: 40px 32px;
+      transition: background 0.2s ease;
+      grid-column: span 2;
+    }
+    .svc-card:hover { background: var(--surface-dark); }
+
+    .svc-card:nth-child(4) { grid-column: span 3; }
+    .svc-card:nth-child(5) { grid-column: span 3; }
+
+    .svc-label {
+      font-family: "Inter", sans-serif;
+      font-weight: 600;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .svc-title {
+      font-family: Georgia, serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .svc-tagline {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: 15px;
+      color: var(--off-white);
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+    .svc-body {
+      font-size: 15px;
+      color: var(--warm-gray);
+      line-height: 1.7;
+    }
+
+    /* ─── WHY BRAVAU ─── */
+    .why-section {
+      background: var(--charcoal);
+      overflow: hidden;
+    }
+
+    .why-inner {
+      display: grid;
+      grid-template-columns: 55fr 45fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .why-list { list-style: none; margin-top: 36px; }
+
+    .why-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+    }
+    .why-item:first-child { border-top: 1px solid rgba(201, 168, 76, 0.15); }
+
+    .why-n {
+      font-family: Georgia, serif;
+      font-weight: 700;
+      font-size: 28px;
+      color: var(--gold);
+      line-height: 1;
+      min-width: 36px;
+      padding-top: 2px;
+    }
+
+    .why-content h3 {
+      font-size: 18px;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .why-content p {
+      font-size: 15px;
+      color: var(--warm-gray);
+      line-height: 1.6;
+    }
+
+    .why-visual {
+      position: relative;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .why-kpi {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    .why-kpi span:first-child {
+      font-family: Georgia, serif;
+      font-weight: 700;
+      font-size: 72px;
+      color: var(--gold);
+      display: block;
+      line-height: 1;
+    }
+    .why-kpi span:last-child {
+      font-family: "Inter", sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      color: var(--warm-gray);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 10px;
+      display: block;
+    }
+
+    /* ─── FINAL CTA ─── */
+    .cta-section {
+      background: var(--deep-onyx);
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(30px, 4vw, 54px);
+      margin-bottom: 24px;
+    }
+
+    .cta-lead {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: 19px;
+      color: var(--off-white);
+      margin-bottom: 48px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+    }
+
+    .cta-btns { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+
+    .cta-note {
+      margin-top: 32px;
+      font-family: "Inter", sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      color: var(--warm-gray);
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--charcoal);
+      border-top: 1px solid rgba(201, 168, 76, 0.3);
+      padding: 64px 0 40px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      color: var(--warm-gray);
+      line-height: 1.6;
+      margin-top: 14px;
+    }
+
+    .footer-col h4 {
+      font-family: "Inter", sans-serif;
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a {
+      font-size: 14px;
+      color: var(--warm-gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--off-white); }
+
+    .footer-hr { height: 1px; background: rgba(201, 168, 76, 0.2); margin-bottom: 28px; }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-cert, .footer-copy {
+      font-family: "Inter", sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      color: var(--warm-gray);
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── FADE-IN ANIMATION ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.65s ease both; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 960px) {
+      .hero-inner      { grid-template-columns: 1fr; }
+      .hero-visual     { display: none; }
+      .two-col         { grid-template-columns: 1fr; gap: 48px; }
+      .col-divider     { border-left: none; padding-left: 0; border-top: 1px solid rgba(201, 168, 76, 0.3); padding-top: 48px; }
+      .metrics-grid    { grid-template-columns: 1fr; gap: 40px; }
+      .metric-item     { padding: 0; }
+      .metric-item + .metric-item { padding-left: 0; border-left: none; border-top: 1px solid rgba(201, 168, 76, 0.2); padding-top: 40px; }
+      .services-grid   { grid-template-columns: 1fr; }
+      .svc-card, .svc-card:nth-child(4), .svc-card:nth-child(5) { grid-column: span 1; }
+      .why-inner       { grid-template-columns: 1fr; }
+      .why-visual      { display: none; }
+      .footer-grid     { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      section          { padding: 72px 0; }
+      .hero            { padding: 80px 0 64px; }
+      .nav-links       { display: none; }
+      .metric-num      { font-size: 48px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════ -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="logo-wrap">
+        <img src="Logo Bravau.png" alt="Bravau Auditores" height="48" style="height:48px;width:auto;display:block;">
+      </a>
+      <ul class="nav-links">
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#diferenciais">Por que Bravau</a></li>
+        <li><a href="#resultados">Resultados</a></li>
+        <li><a href="#contato" class="btn-primary nav-cta">Fale com um especialista</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!-- ═══════════════════════════════
+       HERO
+  ═══════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-inner">
+
+      <div class="hero-content fade-up">
+        <span class="eyebrow">Do ponto A ao ponto B</span>
+        <h1>Sua empresa tem mais custo do que deve ter.</h1>
+        <p class="hero-lead">
+          Gestão contábil, financeira e tributária para proteger e multiplicar valor.
+        </p>
+        <div class="hero-ctas">
+          <a href="#contato" class="btn-primary">Diagnóstico sem compromisso</a>
+          <a href="#servicos" class="btn-ghost">Conheça os serviços</a>
+        </div>
+        <p class="hero-cert">
+          Certificados pelo Banco Central e CVM &nbsp;·&nbsp; IFRS &nbsp;·&nbsp; CPC &nbsp;·&nbsp; US GAAP
+        </p>
+      </div>
+
+      <div class="hero-visual">
+        <div class="diamonds">
+          <div class="diamond"></div>
+          <div class="diamond"></div>
+          <div class="diamond"></div>
+          <div class="diamond"></div>
+          <div class="diamond"></div>
+          <div class="diamond"></div>
+          <div class="diamond"></div>
+        </div>
+        <div class="hero-kpi">
+          <span class="hero-kpi-num">$</span>
+          <span class="hero-kpi-label">Certificados pelo <br> Banco Central e CVM</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════
+       CREDENTIALS BAR
+  ═══════════════════════════════ -->
+  <div class="cred-bar">
+    <p>Certificados pelo Banco Central e CVM &nbsp;·&nbsp; IFRS &nbsp;·&nbsp; CPC &nbsp;·&nbsp; US GAAP &nbsp;·&nbsp; Membros do CFC &nbsp;·&nbsp; Habilitados pela CVM</p>
+  </div>
+
+
+  <!-- ═══════════════════════════════
+       METRICS
+  ═══════════════════════════════ -->
+  <section class="metrics-section" id="resultados">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Resultados Comprovados</span>
+        <h2>O que entregamos, em números.</h2>
+      </div>
+      <div class="metrics-grid">
+        <div class="metric-item">
+          <span class="metric-num">−68%</span>
+          <span class="metric-lbl">Inconsistências contábeis</span>
+          <p class="metric-desc">Redução média após reestruturação contábil e implantação de controles internos nos primeiros 12 meses.</p>
+        </div>
+        <div class="metric-item">
+          <span class="metric-num">+37%</span>
+          <span class="metric-lbl">Eficiência tributária</span>
+          <p class="metric-desc">Ganho médio por meio de planejamento tributário alinhado à Reforma e ao perfil fiscal de cada cliente.</p>
+        </div>
+        <div class="metric-item">
+          <span class="metric-num">0</span>
+          <span class="metric-lbl">Ressalvas em auditoria</span>
+          <p class="metric-desc">100% dos clientes aprovados sem ressalvas nos últimos três anos. Conformidade não é promessa, é entrega.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════
+       PROBLEM / SOLUTION
+  ═══════════════════════════════ -->
+  <section class="problem-section">
+    <div class="container">
+      <div class="two-col">
+
+        <div>
+          <span class="eyebrow">O Problema</span>
+          <h2 class="section-h2">Auditoria cara, demorada e cheia de ressalvas não é azar. É falta de preparação.</h2>
+          <p class="body-p">
+            Empresas de médio porte operam com a contabilidade do dia a dia funcional, mas sem os controles que uma auditoria séria exige. Quando o Fisco, um investidor ou um processo de due diligence chega, o problema aparece.
+          </p>
+          <p class="body-p">
+            A diferença entre uma empresa preparada e uma em crise é, quase sempre, uma questão de antecipação.
+          </p>
+        </div>
+
+        <div class="col-divider">
+          <span class="eyebrow">A Solução</span>
+          <h2 class="section-h2">Auditoria tranquila não é sorte. É método.</h2>
+          <p class="body-p">
+            A Bravau atua antes do problema, estruturando processos, adequando demonstrações e antecipando riscos. Nossa metodologia combina profundidade de Big Four com a agilidade que o médio mercado exige.
+          </p>
+          <p class="body-p">
+            Cada entrega é documentada, rastreável e alinhada aos padrões IFRS, CPC e US GAAP.
+          </p>
+          <a href="#contato" class="btn-primary" style="margin-top: 28px;">A conversa é gratuita.</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════
+       SERVICES
+  ═══════════════════════════════ -->
+  <section class="services-section" id="servicos">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">O que fazemos</span>
+        <h2>Cinco serviços. Uma empresa.</h2>
+      </div>
+      <div class="services-grid">
+
+        <div class="svc-card">
+          <p class="svc-label">Estratégia</p>
+          <h3 class="svc-title">Adequação à Reforma Tributária</h3>
+          <p class="svc-tagline">"Prepare-se antes que seja tarde."</p>
+          <p class="svc-body">A Reforma Tributária já está em vigor. Empresas que não se adequaram vão pagar mais. Mapeamos o impacto no seu modelo de negócio e conduzimos a transição com precisão e sem interrupção operacional.</p>
+        </div>
+
+        <div class="svc-card">
+          <p class="svc-label">Fundação</p>
+          <h3 class="svc-title">Estruturação do Negócio</h3>
+          <p class="svc-tagline">"Base sólida para crescer certo."</p>
+          <p class="svc-body">Constituição societária, governança financeira e compliance regulatório. Construímos a estrutura que sustenta o crescimento sem atalhos que viram problemas depois.</p>
+        </div>
+
+        <div class="svc-card">
+          <p class="svc-label">Conformidade</p>
+          <h3 class="svc-title">Auditoria Consultiva</h3>
+          <p class="svc-tagline">"Sem surpresas na hora H."</p>
+          <p class="svc-body">Auditoria que vai além do parecer. Identificamos riscos contábeis, fortalecemos controles internos e preparamos sua empresa para due diligence, fiscalização ou captação.</p>
+        </div>
+
+        <div class="svc-card">
+          <p class="svc-label">Tecnologia</p>
+          <h3 class="svc-title">Implantação de ERP</h3>
+          <p class="svc-tagline">"Seu sistema trabalhando por você."</p>
+          <p class="svc-body">Seleção, parametrização e implantação de ERP alinhado aos seus processos contábeis e fiscais. Integração com relatórios gerenciais e obrigações acessórias. Sem retrabalho depois do go-live.</p>
+        </div>
+
+        <div class="svc-card">
+          <p class="svc-label">Crescimento</p>
+          <h3 class="svc-title">Gestão para Criação de Valor</h3>
+          <p class="svc-tagline">"Lucro virou riqueza real."</p>
+          <p class="svc-body">Transformamos resultados financeiros em valor patrimonial real. Valuation, reestruturação de capital, planejamento de saída e estratégia de investimento para o sócio que quer crescer com solidez.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════
+       WHY BRAVAU
+  ═══════════════════════════════ -->
+  <section class="why-section" id="diferenciais">
+    <div class="container">
+      <div class="why-inner">
+
+        <div>
+          <span class="eyebrow">Por que Bravau</span>
+          <h2 class="section-h2">Não somos um escritório de contabilidade. Somos seu parceiro estratégico.</h2>
+          <ul class="why-list">
+            <li class="why-item">
+              <span class="why-n">01</span>
+              <div class="why-content">
+                <h3>Certificação de alto nível</h3>
+                <p>Habilitados pelo Banco Central e CVM. Metodologia IFRS, CPC e US GAAP aplicada a empresas do médio mercado brasileiro.</p>
+              </div>
+            </li>
+            <li class="why-item">
+              <span class="why-n">02</span>
+              <div class="why-content">
+                <h3>Antecipação, não remediação</h3>
+                <p>Identificamos e eliminamos riscos antes que se tornem problemas. Não chegamos depois do incêndio. Chegamos antes da faísca.</p>
+              </div>
+            </li>
+            <li class="why-item">
+              <span class="why-n">03</span>
+              <div class="why-content">
+                <h3>Sócio responsável em cada conta</h3>
+                <p>Nenhum cliente é terceirizado para analistas júnior sem supervisão. Cada conta tem um sócio dedicado e acesso direto.</p>
+              </div>
+            </li>
+            <li class="why-item">
+              <span class="why-n">04</span>
+              <div class="why-content">
+                <h3>Entrega rastreável e auditável</h3>
+                <p>Cada relatório, diagnóstico e parecer é documentado, versionado e auditável. Transparência total, sem caixas-pretas.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="why-visual">
+          <div class="diamonds">
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+            <div class="diamond"></div>
+          </div>
+          <div class="why-kpi">
+            <span>+10</span>
+            <span>Anos de mercado<br>no mid-market brasileiro</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════
+       FINAL CTA
+  ═══════════════════════════════ -->
+  <section class="cta-section" id="contato">
+    <div class="container">
+      <span class="eyebrow">Próximo Passo</span>
+      <h2>A conversa é gratuita.<br>O diagnóstico, revelador.</h2>
+      <p class="cta-lead">Diagnóstico sem compromisso. Você sai da reunião sabendo exatamente onde estão os riscos, e o que fazer com eles.</p>
+      <div class="cta-btns">
+        <a href="mailto:contato@bravau.com.br" class="btn-primary">Agendar diagnóstico</a>
+        <a href="tel:+55" class="btn-ghost">Fale com um especialista</a>
+      </div>
+      <p class="cta-note">Sem compromisso. Sem letra miúda. Apenas uma conversa com quem entende do assunto.</p>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════
+       FOOTER
+  ═══════════════════════════════ -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <img src="Logo Bravau.png" alt="Bravau Auditores" height="48" style="height:48px;width:auto;display:block;margin-bottom:10px;">
+          <p>Padrão Big Four para o mercado brasileiro de médio porte. Certificados, comprometidos, rastreáveis.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Serviços</h4>
+          <ul>
+            <li><a href="#">Reforma Tributária</a></li>
+            <li><a href="#">Estruturação do Negócio</a></li>
+            <li><a href="#">Auditoria Consultiva</a></li>
+            <li><a href="#">Implantação de ERP</a></li>
+            <li><a href="#">Gestão para Criação de Valor</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contato</h4>
+          <ul>
+            <li><a href="mailto:contato@bravau.com.br">contato@bravau.com.br</a></li>
+            <li><a href="#">Goiânia, GO</a></li>
+          </ul>
+          <a href="#contato" class="btn-primary" style="margin-top: 24px; display: inline-block;">Diagnóstico gratuito</a>
+        </div>
+
+      </div>
+
+      <div class="footer-hr"></div>
+
+      <div class="footer-bottom">
+        <p class="footer-cert">Certificados pelo Banco Central e CVM &nbsp;·&nbsp; IFRS &nbsp;·&nbsp; CPC &nbsp;·&nbsp; US GAAP</p>
+        <p class="footer-copy">© 2026 Bravau Auditores. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
