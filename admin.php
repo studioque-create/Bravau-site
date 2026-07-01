@@ -2,14 +2,67 @@
 session_start();
 
 // Configurações
-define('PASSWORD', 'bravau1234'); // ALTERE ESTA SENHA PARA A SUA SEGURANÇA
 define('JSON_FILE', 'blog.json');
 define('CONTENT_FILE', 'site_content.json');
+
+// Salt e Key derivados de PBKDF2 para a senha padrão 'bravau1234'
+define('PASSWORD_SALT', '67762a5ea5daf178da71fa454c3abfa0');
+define('PASSWORD_KEY', 'f726fa4b97cdf09260800af06fb4df8793fe9e4998384589840c00398965130e');
+
+// Utilitário para gerar nova senha (acessível via admin.php?generator=1)
+if (isset($_GET['generator'])) {
+    $new_pass = $_GET['pass'] ?? '';
+    $output = '';
+    if ($new_pass !== '') {
+        $salt = random_bytes(16);
+        $salt_hex = bin2hex($salt);
+        $key_hex = hash_pbkdf2("sha256", $new_pass, $salt, 100000, 0);
+        $output = "Copie e cole estas duas linhas no topo do arquivo admin.php substituindo as antigas:\n\n" .
+                  "define('PASSWORD_SALT', '$salt_hex');\n" .
+                  "define('PASSWORD_KEY', '$key_hex');";
+    }
+    ?>
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+      <meta charset="UTF-8">
+      <title>Gerador de Senha Segura</title>
+      <style>
+        body { background: #1a1a1a; color: #f0ede8; font-family: sans-serif; padding: 40px; }
+        input { background: #222; border: 1px solid #c9a84c; color: #fff; padding: 10px; width: 300px; }
+        button { background: #c9a84c; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; }
+        pre { background: #2a2a2a; border-left: 3px solid #c9a84c; padding: 20px; color: #c9a84c; font-family: monospace; }
+      </style>
+    </head>
+    <body>
+      <h2>Gerador de Hash de Senha para Bravau CMS</h2>
+      <form method="GET">
+        <input type="hidden" name="generator" value="1">
+        <label>Nova Senha:</label>
+        <input type="text" name="pass" required value="<?php echo htmlspecialchars($new_pass); ?>">
+        <button type="submit">Gerar Código</button>
+      </form>
+      <?php if ($output !== ''): ?>
+        <h3>Código Gerado:</h3>
+        <pre><?php echo htmlspecialchars($output); ?></pre>
+      <?php endif; ?>
+      <p><a href="admin.php" style="color:#9a9a8a;">Voltar para o Login</a></p>
+    </body>
+    </html>
+    <?php
+    exit;
+}
+
+// Helper para verificar a senha utilizando PBKDF2-HMAC-SHA256
+function verify_password($password, $stored_salt, $stored_key) {
+    $calc_key = hash_pbkdf2("sha256", $password, hex2bin($stored_salt), 100000, 0);
+    return hash_equals($stored_key, $calc_key);
+}
 
 // Autenticação
 if (isset($_POST['login'])) {
     $password = $_POST['password'] ?? '';
-    if ($password === PASSWORD) {
+    if (verify_password($password, PASSWORD_SALT, PASSWORD_KEY)) {
         $_SESSION['logged_in'] = true;
     } else {
         $error = "Senha incorreta.";
@@ -22,8 +75,22 @@ if (isset($_GET['logout'])) {
     exit;
 }
 
-// Proteção da página
+// Proteção da página e controle de CSRF
 $logged_in = $_SESSION['logged_in'] ?? false;
+if ($logged_in) {
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    
+    // Validar token CSRF em todas as alterações via POST
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['login'])) {
+        $token = $_POST['csrf_token'] ?? '';
+        if (!$token || empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $token)) {
+            header("HTTP/1.1 403 Forbidden");
+            die("Erro de Segurança: Validação do token CSRF falhou. Ação cancelada.");
+        }
+    }
+}
 
 // Função auxiliar para gerar URL amigável (slug)
 function slugify($text) {
@@ -66,20 +133,42 @@ if ($logged_in) {
 
         if (isset($_FILES['featured_image']) && $_FILES['featured_image']['error'] === UPLOAD_ERR_OK) {
             $fileTmpPath = $_FILES['featured_image']['tmp_name'];
-            $fileName = $_FILES['featured_image']['name'];
-            $fileNameCmps = explode(".", $fileName);
-            $fileExtension = strtolower(end($fileNameCmps));
-            $allowedfileExtensions = ['jpg', 'jpeg', 'png', 'webp'];
             
-            if (in_array($fileExtension, $allowedfileExtensions)) {
-                $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
-                $uploadFileDir = 'uploads/';
-                if (!is_dir($uploadFileDir)) {
-                    mkdir($uploadFileDir, 0755, true);
+            // Validação profunda 1: Verificar se é imagem real
+            $image_info = @getimagesize($fileTmpPath);
+            if ($image_info === false) {
+                $error = "O arquivo enviado não é uma imagem válida.";
+            } else {
+                // Validação profunda 2: Verificar MIME-type real
+                $allowed_mimes = ['image/jpeg', 'image/png', 'image/webp'];
+                $mime = '';
+                if (function_exists('mime_content_type')) {
+                    $mime = mime_content_type($fileTmpPath);
+                } elseif (function_exists('finfo_open')) {
+                    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                    $mime = finfo_file($finfo, $fileTmpPath);
+                    finfo_close($finfo);
                 }
-                $dest_path = $uploadFileDir . $newFileName;
-                if (move_uploaded_file($fileTmpPath, $dest_path)) {
-                    $image = $dest_path;
+                
+                if (!in_array($mime, $allowed_mimes)) {
+                    $error = "MIME-type de imagem inválido. Apenas JPG, PNG e WEBP são permitidos.";
+                } else {
+                    $fileName = $_FILES['featured_image']['name'];
+                    $fileNameCmps = explode(".", $fileName);
+                    $fileExtension = strtolower(end($fileNameCmps));
+                    $allowedfileExtensions = ['jpg', 'jpeg', 'png', 'webp'];
+                    
+                    if (in_array($fileExtension, $allowedfileExtensions)) {
+                        $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+                        $uploadFileDir = 'uploads/';
+                        if (!is_dir($uploadFileDir)) {
+                            mkdir($uploadFileDir, 0755, true);
+                        }
+                        $dest_path = $uploadFileDir . $newFileName;
+                        if (move_uploaded_file($fileTmpPath, $dest_path)) {
+                            $image = $dest_path;
+                        }
+                    }
                 }
             }
         }
@@ -536,6 +625,7 @@ if ($logged_in) {
       <div class="card">
         <h2 class="section-title"><?php echo $form_title; ?></h2>
         <form action="admin.php?tab=blog<?php echo $is_editing ? '&edit=' . $edit_index : ''; ?>" method="POST" enctype="multipart/form-data">
+          <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'] ?? ''; ?>">
           <div class="form-group">
             <label for="title">Título do Artigo</label>
             <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($current_title); ?>" required>
@@ -616,6 +706,7 @@ if ($logged_in) {
     ═══════════════════════════════ -->
     <?php elseif ($tab === 'content'): ?>
       <form action="admin.php?tab=content" method="POST">
+        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'] ?? ''; ?>">
         
         <!-- SEÇÃO: CABEÇALHO & HERO -->
         <div class="card">
