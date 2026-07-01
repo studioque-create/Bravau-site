@@ -4,53 +4,19 @@ session_start();
 // Configurações
 define('JSON_FILE', 'blog.json');
 define('CONTENT_FILE', 'site_content.json');
+define('CONFIG_FILE', 'config.php');
 
-// Salt e Key derivados de PBKDF2 para a senha padrão 'bravau1234'
-define('PASSWORD_SALT', '67762a5ea5daf178da71fa454c3abfa0');
-define('PASSWORD_KEY', 'f726fa4b97cdf09260800af06fb4df8793fe9e4998384589840c00398965130e');
+// Carrega as credenciais dinâmicas se existirem
+if (file_exists(CONFIG_FILE)) {
+    include CONFIG_FILE;
+}
 
-// Utilitário para gerar nova senha (acessível via admin.php?generator=1)
-if (isset($_GET['generator'])) {
-    $new_pass = $_GET['pass'] ?? '';
-    $output = '';
-    if ($new_pass !== '') {
-        $salt = random_bytes(16);
-        $salt_hex = bin2hex($salt);
-        $key_hex = hash_pbkdf2("sha256", $new_pass, $salt, 100000, 0);
-        $output = "Copie e cole estas duas linhas no topo do arquivo admin.php substituindo as antigas:\n\n" .
-                  "define('PASSWORD_SALT', '$salt_hex');\n" .
-                  "define('PASSWORD_KEY', '$key_hex');";
-    }
-    ?>
-    <!DOCTYPE html>
-    <html lang="pt-BR">
-    <head>
-      <meta charset="UTF-8">
-      <title>Gerador de Senha Segura</title>
-      <style>
-        body { background: #1a1a1a; color: #f0ede8; font-family: sans-serif; padding: 40px; }
-        input { background: #222; border: 1px solid #c9a84c; color: #fff; padding: 10px; width: 300px; }
-        button { background: #c9a84c; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; }
-        pre { background: #2a2a2a; border-left: 3px solid #c9a84c; padding: 20px; color: #c9a84c; font-family: monospace; }
-      </style>
-    </head>
-    <body>
-      <h2>Gerador de Hash de Senha para Bravau CMS</h2>
-      <form method="GET">
-        <input type="hidden" name="generator" value="1">
-        <label>Nova Senha:</label>
-        <input type="text" name="pass" required value="<?php echo htmlspecialchars($new_pass); ?>">
-        <button type="submit">Gerar Código</button>
-      </form>
-      <?php if ($output !== ''): ?>
-        <h3>Código Gerado:</h3>
-        <pre><?php echo htmlspecialchars($output); ?></pre>
-      <?php endif; ?>
-      <p><a href="admin.php" style="color:#9a9a8a;">Voltar para o Login</a></p>
-    </body>
-    </html>
-    <?php
-    exit;
+// Fallback para a senha padrão 'bravau1234' caso config.php não exista
+if (!defined('PASSWORD_SALT')) {
+    define('PASSWORD_SALT', '67762a5ea5daf178da71fa454c3abfa0');
+}
+if (!defined('PASSWORD_KEY')) {
+    define('PASSWORD_KEY', 'f726fa4b97cdf09260800af06fb4df8793fe9e4998384589840c00398965130e');
 }
 
 // Helper para verificar a senha utilizando PBKDF2-HMAC-SHA256
@@ -308,6 +274,29 @@ if ($logged_in) {
         file_put_contents(CONTENT_FILE, json_encode($new_content, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
         header("Location: admin.php?tab=content&saved=1");
         exit;
+    }
+
+    // Salvar Nova Senha
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_password'])) {
+        $new_pass = $_POST['new_password'] ?? '';
+        $confirm_pass = $_POST['confirm_password'] ?? '';
+
+        if ($new_pass !== '' && $new_pass === $confirm_pass) {
+            $salt = random_bytes(16);
+            $salt_hex = bin2hex($salt);
+            $key_hex = hash_pbkdf2("sha256", $new_pass, $salt, 100000, 0);
+
+            $config_content = "<?php\n" .
+                              "// Arquivo de configuração de credenciais gerado pelo Bravau CMS\n" .
+                              "define('PASSWORD_SALT', '$salt_hex');\n" .
+                              "define('PASSWORD_KEY', '$key_hex');\n";
+
+            file_put_contents(CONFIG_FILE, $config_content);
+            header("Location: admin.php?tab=password&saved=1");
+            exit;
+        } else {
+            $error = "As senhas não coincidem ou são inválidas.";
+        }
     }
 }
 ?>
@@ -600,11 +589,18 @@ if ($logged_in) {
     <div class="tabs">
       <a href="admin.php?tab=blog" class="tab-btn <?php echo $tab === 'blog' ? 'active' : ''; ?>">Gerenciar Blog</a>
       <a href="admin.php?tab=content" class="tab-btn <?php echo $tab === 'content' ? 'active' : ''; ?>">Editar Página Inicial</a>
+      <a href="admin.php?tab=password" class="tab-btn <?php echo $tab === 'password' ? 'active' : ''; ?>">Alterar Senha</a>
     </div>
+
+    <?php if (isset($error)): ?>
+      <div style="background: rgba(255, 85, 85, 0.15); border: 1px solid #ff5555; color: #ff9999; padding: 16px; margin-bottom: 24px; font-size: 14px;">
+        ⚠️ <?php echo htmlspecialchars($error); ?>
+      </div>
+    <?php endif; ?>
 
     <?php if (isset($_GET['saved']) && $_GET['saved'] == 1): ?>
       <div class="success-alert">
-        ✓ Configurações da página inicial atualizadas com sucesso! Um backup preventivo foi criado.
+        ✓ <?php echo $tab === 'password' ? 'Senha atualizada com sucesso no arquivo config.php!' : 'Configurações da página inicial atualizadas com sucesso! Um backup preventivo foi criado.'; ?>
       </div>
     <?php endif; ?>
 
@@ -996,6 +992,29 @@ if ($logged_in) {
         </div>
 
       </form>
+
+    <!-- ═══════════════════════════════
+         TAB: ALTERAR SENHA
+    ═══════════════════════════════ -->
+    <?php elseif ($tab === 'password'): ?>
+      <div class="card">
+        <h2 class="section-title">Alterar Senha de Acesso</h2>
+        <form action="admin.php?tab=password" method="POST">
+          <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token'] ?? ''; ?>">
+          
+          <div class="form-group">
+            <label for="new_password">Nova Senha</label>
+            <input type="password" id="new_password" name="new_password" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="confirm_password">Confirmar Nova Senha</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+          </div>
+          
+          <button type="submit" name="change_password" class="btn">Atualizar Senha</button>
+        </form>
+      </div>
     <?php endif; ?>
 
   <?php endif; ?>
