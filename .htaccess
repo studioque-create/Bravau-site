@@ -1,0 +1,7 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Redirecionamento amigável para artigos do blog
+    # Mapeia dominio.com/artigo/slug-do-post para dominio.com/post.php?slug=slug-do-post
+    RewriteRule ^artigo/([a-zA-Z0-9_-]+)/?$ post.php?slug=$1 [QSA,L]
+</IfModule>

@@ -1,3 +1,9 @@
+<?php
+$home = [];
+if (file_exists('site_content.json')) {
+    $home = json_decode(file_get_contents('site_content.json'), true) ?: [];
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -40,7 +46,15 @@
       font-weight: 700;
       color: var(--white);
       letter-spacing: -0.02em;
+    }
+    h1 {
       line-height: 1.1;
+    }
+    h2 {
+      line-height: 1.3;
+    }
+    h3 {
+      line-height: 1.25;
     }
 
     .eyebrow {
@@ -145,9 +159,11 @@
     /* ─── HERO ─── */
     .hero {
       position: relative;
-      padding: 120px 0 100px;
-      background: var(--deep-onyx);
+      padding: 160px 0 140px;
+      background: linear-gradient(135deg, rgba(26, 26, 26, 0.92) 20%, rgba(26, 26, 26, 0.65) 100%), url('bravau_hero_bg.jpg') no-repeat center center;
+      background-size: cover;
       overflow: hidden;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.2);
     }
 
     .hero-inner {
@@ -197,6 +213,15 @@
       align-items: center;
       justify-content: center;
     }
+    .hero-visual .hero-kpi {
+      background: rgba(26, 26, 26, 0.85);
+      border: 1px solid var(--gold);
+      padding: 32px 40px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      text-align: center;
+      width: 260px;
+    }
 
     .diamonds {
       position: absolute;
@@ -242,6 +267,51 @@
   color: #C9A84C;
   line-height: 1.6;
 }
+
+    /* ─── TOP CREDENTIALS BANNER ─── */
+    .top-banner {
+      background: #222222;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.3);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px 12px;
+      text-align: center;
+    }
+    .top-banner-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      color: #C9A84C;
+      text-transform: uppercase;
+    }
+    .top-banner-divider {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      color: #9A9A8A;
+    }
+    .top-banner-standards {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      color: #9A9A8A;
+      text-transform: uppercase;
+    }
+    @media (max-width: 600px) {
+      .top-banner {
+        flex-direction: column;
+        gap: 4px;
+        padding: 10px 16px;
+      }
+      .top-banner-divider {
+        display: none;
+      }
+    }
 
     /* ─── CREDENTIALS BAR ─── */
     .cred-bar {
@@ -323,7 +393,7 @@
     .section-h2 {
       font-size: clamp(26px, 3.2vw, 42px);
       margin-bottom: 24px;
-      line-height: 1.15;
+      line-height: 1.3;
     }
 
     .body-p {
@@ -555,6 +625,67 @@
       letter-spacing: 0.06em;
     }
 
+    /* ─── BLOG ─── */
+    .blog-section { background: var(--charcoal); }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .blog-card {
+      background: var(--deep-onyx);
+      border-top: 3px solid var(--gold);
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      transition: background 0.2s ease;
+    }
+    .blog-card:hover {
+      background: var(--surface-dark);
+    }
+    .blog-date {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 11px;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .blog-title {
+      font-family: Georgia, serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--white);
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+    .blog-excerpt {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: var(--warm-gray);
+      line-height: 1.6;
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+    .blog-link {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .blog-link:hover {
+      color: var(--off-white);
+    }
+
+
     /* ─── FADE-IN ANIMATION ─── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
@@ -565,7 +696,7 @@
     /* ─── RESPONSIVE ─── */
     @media (max-width: 960px) {
       .hero-inner      { grid-template-columns: 1fr; }
-      .hero-visual     { display: none; }
+      .hero-visual     { display: flex; height: 350px; margin-top: 32px; }
       .two-col         { grid-template-columns: 1fr; gap: 48px; }
       .col-divider     { border-left: none; padding-left: 0; border-top: 1px solid rgba(201, 168, 76, 0.3); padding-top: 48px; }
       .metrics-grid    { grid-template-columns: 1fr; gap: 40px; }
@@ -575,14 +706,88 @@
       .svc-card, .svc-card:nth-child(4), .svc-card:nth-child(5) { grid-column: span 1; }
       .why-inner       { grid-template-columns: 1fr; }
       .why-visual      { display: none; }
+      .blog-grid       { grid-template-columns: 1fr; gap: 24px; }
       .footer-grid     { grid-template-columns: 1fr; }
+    }
+
+    /* ─── MENU HAMBÚRGUER (DESKTOP DEFAULT) ─── */
+    .menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 24px;
+      height: 18px;
+      cursor: pointer;
+      z-index: 110;
+    }
+    .menu-btn span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background-color: var(--gold);
+      transition: all 0.3s ease;
     }
 
     @media (max-width: 600px) {
       section          { padding: 72px 0; }
       .hero            { padding: 80px 0 64px; }
-      .nav-links       { display: none; }
       .metric-num      { font-size: 48px; }
+      .hero-visual     { height: 280px; }
+      .hero-visual .hero-kpi { padding: 16px 24px; width: 190px; }
+      .hero-kpi-num    { font-size: 64px; }
+
+      /* Responsividade do Menu Mobile */
+      .menu-btn {
+        display: flex;
+      }
+
+      .nav-inner {
+        position: relative;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        width: 100%;
+        background: var(--deep-onyx);
+        border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+        padding: 32px 24px;
+        gap: 24px;
+        align-items: stretch;
+        text-align: center;
+        
+        /* Estado inicial oculto com transição suave */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+        z-index: 99;
+      }
+
+      .nav-links .nav-cta {
+        padding: 14px 32px; /* Restaura padding padrão do botão primário no mobile */
+      }
+
+      /* Alternância de estado via Checkbox */
+      .menu-toggle-cb:checked ~ .nav-links {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      /* Transição do ícone Hambúrguer para X */
+      .menu-toggle-cb:checked ~ .menu-btn span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+      .menu-toggle-cb:checked ~ .menu-btn span:nth-child(2) {
+        opacity: 0;
+      }
+      .menu-toggle-cb:checked ~ .menu-btn span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
     }
   </style>
 </head>
@@ -596,22 +801,31 @@
       <a href="#" class="logo-wrap">
         <img src="Logo Bravau.png" alt="Bravau Auditores" height="48" style="height:48px;width:auto;display:block;">
       </a>
+
+      <!-- Controle de estado do Menu (Checkbox Hack) -->
+      <input type="checkbox" id="menu-toggle" class="menu-toggle-cb" style="display: none;">
+
+      <!-- Ícone Hambúrguer -->
+      <label for="menu-toggle" class="menu-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
       <ul class="nav-links">
-        <li><a href="#servicos">Serviços</a></li>
-        <li><a href="#diferenciais">Por que Bravau</a></li>
-        <li><a href="#resultados">Resultados</a></li>
-        <li><a href="#contato" class="btn-primary nav-cta">Fale com um especialista</a></li>
+        <li><a href="#quem-somos" onclick="document.getElementById('menu-toggle').checked = false">Quem Somos</a></li>
+        <li><a href="#servicos" onclick="document.getElementById('menu-toggle').checked = false">Serviços</a></li>
+        <li><a href="#diferenciais" onclick="document.getElementById('menu-toggle').checked = false">Por que Bravau</a></li>
+        <li><a href="#resultados" onclick="document.getElementById('menu-toggle').checked = false">Resultados</a></li>
+        <li><a href="blog.php" onclick="document.getElementById('menu-toggle').checked = false">Blog</a></li>
+        <li><a href="https://wa.me/5562<?php echo preg_replace('/\D/', '', $home['contact']['phone'] ?? ''); ?>?text=Olá,%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Bravau." target="_blank" class="btn-primary nav-cta" onclick="document.getElementById('menu-toggle').checked = false">Fale com um especialista</a></li>
       </ul>
     </div>
   </nav>
-</nav>
-<div style="background:#222222; border-bottom:1px solid rgba(201,168,76,0.3); padding:12px 0; text-align:center;">
-  <span style="font-family:'Inter',sans-serif; font-weight:500; font-size:13px; letter-spacing:0.18em; color:#C9A84C; text-transform:uppercase;">
-    Auditores Certificados pelo Banco Central e CVM
-  </span>
-  <span style="font-family:'Inter',sans-serif; font-weight:300; font-size:13px; letter-spacing:0.1em; color:#9A9A8A;">
-    &nbsp;&nbsp;·&nbsp;&nbsp;IFRS&nbsp;&nbsp;·&nbsp;&nbsp;CPC&nbsp;&nbsp;·&nbsp;&nbsp;US GAAP
-  </span>
+<div class="top-banner">
+  <span class="top-banner-title"><?php echo htmlspecialchars($home['top_banner']['title'] ?? ''); ?></span>
+  <span class="top-banner-divider">·</span>
+  <span class="top-banner-standards"><?php echo htmlspecialchars($home['top_banner']['standards'] ?? ''); ?></span>
 </div>
 
   <!-- ═══════════════════════════════
@@ -622,32 +836,23 @@
 
       <div class="hero-content fade-up">
         <span class="eyebrow">Do ponto A ao ponto B</span>
-        <h1>Sua empresa tem mais custo do que deve ter.</h1>
+        <h1><?php echo nl2br(htmlspecialchars($home['hero']['title'] ?? '')); ?></h1>
         <p class="hero-lead">
-          Gestão contábil, financeira e tributária para proteger e multiplicar valor.
+          <?php echo htmlspecialchars($home['hero']['lead'] ?? ''); ?>
         </p>
         <div class="hero-ctas">
-          <a href="#contato" class="btn-primary">Diagnóstico sem compromisso</a>
+          <a href="https://wa.me/5562<?php echo preg_replace('/\D/', '', $home['contact']['phone'] ?? ''); ?>?text=Olá,%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Bravau." target="_blank" class="btn-primary">Diagnóstico sem compromisso</a>
           <a href="#servicos" class="btn-ghost">Conheça os serviços</a>
         </div>
         <p class="hero-cert">
-          Certificados pelo Banco Central e CVM &nbsp;·&nbsp; IFRS &nbsp;·&nbsp; CPC &nbsp;·&nbsp; US GAAP
+          <?php echo htmlspecialchars($home['top_banner']['title'] ?? '') . ' &nbsp;·&nbsp; ' . htmlspecialchars($home['top_banner']['standards'] ?? ''); ?>
         </p>
       </div>
 
       <div class="hero-visual">
-        <div class="diamonds">
-          <div class="diamond"></div>
-          <div class="diamond"></div>
-          <div class="diamond"></div>
-          <div class="diamond"></div>
-          <div class="diamond"></div>
-          <div class="diamond"></div>
-          <div class="diamond"></div>
-        </div>
         <div class="hero-kpi">
           <span class="hero-kpi-num">$</span>
-          <span class="hero-kpi-label">Auditores Certificados pelo <br> Banco Central e CVM</span>
+          <span class="hero-kpi-label"><?php echo nl2br(htmlspecialchars($home['hero']['kpi_label'] ?? '')); ?></span>
         </div>
       </div>
 
@@ -669,19 +874,19 @@
       </div>
       <div class="metrics-grid">
         <div class="metric-item">
-          <span class="metric-num">−68%</span>
-          <span class="metric-lbl">Inconsistências contábeis</span>
-          <p class="metric-desc">Redução média após reestruturação contábil e implantação de controles internos nos primeiros 12 meses.</p>
+          <span class="metric-num"><?php echo htmlspecialchars($home['metrics']['m1_val'] ?? ''); ?></span>
+          <span class="metric-lbl"><?php echo htmlspecialchars($home['metrics']['m1_label'] ?? ''); ?></span>
+          <p class="metric-desc"><?php echo htmlspecialchars($home['metrics']['m1_desc'] ?? ''); ?></p>
         </div>
         <div class="metric-item">
-          <span class="metric-num">+37%</span>
-          <span class="metric-lbl">Eficiência tributária</span>
-          <p class="metric-desc">Ganho médio por meio de planejamento tributário alinhado à Reforma e ao perfil fiscal de cada cliente.</p>
+          <span class="metric-num"><?php echo htmlspecialchars($home['metrics']['m2_val'] ?? ''); ?></span>
+          <span class="metric-lbl"><?php echo htmlspecialchars($home['metrics']['m2_label'] ?? ''); ?></span>
+          <p class="metric-desc"><?php echo htmlspecialchars($home['metrics']['m2_desc'] ?? ''); ?></p>
         </div>
         <div class="metric-item">
-          <span class="metric-num">0</span>
-          <span class="metric-lbl">Ressalvas em auditoria</span>
-          <p class="metric-desc">100% dos clientes aprovados sem ressalvas nos últimos três anos. Conformidade não é promessa, é entrega.</p>
+          <span class="metric-num"><?php echo htmlspecialchars($home['metrics']['m3_val'] ?? ''); ?></span>
+          <span class="metric-lbl"><?php echo htmlspecialchars($home['metrics']['m3_label'] ?? ''); ?></span>
+          <p class="metric-desc"><?php echo htmlspecialchars($home['metrics']['m3_desc'] ?? ''); ?></p>
         </div>
       </div>
     </div>
@@ -696,26 +901,28 @@
       <div class="two-col">
 
         <div>
-          <span class="eyebrow">O Problema</span>
-          <h2 class="section-h2">Auditoria cara, demorada e cheia de ressalvas não é azar. É falta de preparação.</h2>
-          <p class="body-p">
-            Empresas de médio porte operam com a contabilidade do dia a dia funcional, mas sem os controles que uma auditoria séria exige. Quando o Fisco, um investidor ou um processo de due diligence chega, o problema aparece.
-          </p>
-          <p class="body-p">
-            A diferença entre uma empresa preparada e uma em crise é, quase sempre, uma questão de antecipação.
-          </p>
+          <span class="eyebrow"><?php echo htmlspecialchars($home['problem_solution']['prob_eyebrow'] ?? 'O Problema'); ?></span>
+          <h2 class="section-h2"><?php echo htmlspecialchars($home['problem_solution']['prob_title'] ?? ''); ?></h2>
+          <?php 
+          $paragraphs = explode("\n", $home['problem_solution']['prob_body'] ?? '');
+          foreach ($paragraphs as $p) {
+              $p = trim($p);
+              if ($p !== '') echo '<p class="body-p">' . htmlspecialchars($p) . '</p>';
+          }
+          ?>
         </div>
 
         <div class="col-divider">
-          <span class="eyebrow">A Solução</span>
-          <h2 class="section-h2">Auditoria tranquila não é sorte. É método.</h2>
-          <p class="body-p">
-            A Bravau atua antes do problema, estruturando processos, adequando demonstrações e antecipando riscos. Nossa metodologia combina profundidade de Big Four com a agilidade que o médio mercado exige.
-          </p>
-          <p class="body-p">
-            Cada entrega é documentada, rastreável e alinhada aos padrões IFRS, CPC e US GAAP.
-          </p>
-          <a href="#contato" class="btn-primary" style="margin-top: 28px;">A conversa é gratuita.</a>
+          <span class="eyebrow"><?php echo htmlspecialchars($home['problem_solution']['sol_eyebrow'] ?? 'A Solução'); ?></span>
+          <h2 class="section-h2"><?php echo htmlspecialchars($home['problem_solution']['sol_title'] ?? ''); ?></h2>
+          <?php 
+          $paragraphs = explode("\n", $home['problem_solution']['sol_body'] ?? '');
+          foreach ($paragraphs as $p) {
+              $p = trim($p);
+              if ($p !== '') echo '<p class="body-p">' . htmlspecialchars($p) . '</p>';
+          }
+          ?>
+          <a href="https://wa.me/5562<?php echo preg_replace('/\D/', '', $home['contact']['phone'] ?? ''); ?>?text=Olá,%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Bravau." target="_blank" class="btn-primary" style="margin-top: 28px;">A conversa é gratuita.</a>
         </div>
 
       </div>
@@ -733,42 +940,14 @@
         <h2>Cinco serviços. Uma empresa.</h2>
       </div>
       <div class="services-grid">
-
+        <?php if (!empty($home['services'])): foreach ($home['services'] as $svc): ?>
         <div class="svc-card">
-          <p class="svc-label">Estratégia</p>
-          <h3 class="svc-title">Adequação à Reforma Tributária</h3>
-          <p class="svc-tagline">"Prepare-se antes que seja tarde."</p>
-          <p class="svc-body">A Reforma Tributária já está em vigor. Empresas que não se adequaram vão pagar mais. Mapeamos o impacto no seu modelo de negócio e conduzimos a transição com precisão e sem interrupção operacional.</p>
+          <p class="svc-label"><?php echo htmlspecialchars($svc['label'] ?? ''); ?></p>
+          <h3 class="svc-title"><?php echo htmlspecialchars($svc['title'] ?? ''); ?></h3>
+          <p class="svc-tagline">"<?php echo htmlspecialchars($svc['tagline'] ?? ''); ?>"</p>
+          <p class="svc-body"><?php echo htmlspecialchars($svc['body'] ?? ''); ?></p>
         </div>
-
-        <div class="svc-card">
-          <p class="svc-label">Fundação</p>
-          <h3 class="svc-title">Estruturação do Negócio</h3>
-          <p class="svc-tagline">"Base sólida para crescer certo."</p>
-          <p class="svc-body">Constituição societária, governança financeira e compliance regulatório. Construímos a estrutura que sustenta o crescimento sem atalhos que viram problemas depois.</p>
-        </div>
-
-        <div class="svc-card">
-          <p class="svc-label">Conformidade</p>
-          <h3 class="svc-title">Auditoria Consultiva</h3>
-          <p class="svc-tagline">"Sem surpresas na hora H."</p>
-          <p class="svc-body">Auditoria que vai além do parecer. Identificamos riscos contábeis, fortalecemos controles internos e preparamos sua empresa para due diligence, fiscalização ou captação.</p>
-        </div>
-
-        <div class="svc-card">
-          <p class="svc-label">Tecnologia</p>
-          <h3 class="svc-title">Implantação de ERP</h3>
-          <p class="svc-tagline">"Seu sistema trabalhando por você."</p>
-          <p class="svc-body">Seleção, parametrização e implantação de ERP alinhado aos seus processos contábeis e fiscais. Integração com relatórios gerenciais e obrigações acessórias. Sem retrabalho depois do go-live.</p>
-        </div>
-
-        <div class="svc-card">
-          <p class="svc-label">Crescimento</p>
-          <h3 class="svc-title">Gestão para Criação de Valor</h3>
-          <p class="svc-tagline">"Lucro virou riqueza real."</p>
-          <p class="svc-body">Transformamos resultados financeiros em valor patrimonial real. Valuation, reestruturação de capital, planejamento de saída e estratégia de investimento para o sócio que quer crescer com solidez.</p>
-        </div>
-
+        <?php endforeach; endif; ?>
       </div>
     </div>
   </section>
@@ -782,37 +961,18 @@
       <div class="why-inner">
 
         <div>
-          <span class="eyebrow">Por que Bravau</span>
-          <h2 class="section-h2">Somos seu parceiro estratégico.</h2>
+          <span class="eyebrow"><?php echo htmlspecialchars($home['why_bravau']['eyebrow'] ?? 'Por que Bravau'); ?></span>
+          <h2 class="section-h2"><?php echo htmlspecialchars($home['why_bravau']['title'] ?? ''); ?></h2>
           <ul class="why-list">
+            <?php if (!empty($home['why_bravau']['differentials'])): foreach ($home['why_bravau']['differentials'] as $diff): ?>
             <li class="why-item">
-              <span class="why-n">01</span>
+              <span class="why-n"><?php echo htmlspecialchars($diff['n'] ?? ''); ?></span>
               <div class="why-content">
-                <h3>Certificação de alto nível</h3>
-                <p>Habilitados pelo Banco Central e CVM. Metodologia IFRS, CPC e US GAAP aplicada a empresas do médio mercado brasileiro.</p>
+                <h3><?php echo htmlspecialchars($diff['title'] ?? ''); ?></h3>
+                <p><?php echo htmlspecialchars($diff['desc'] ?? ''); ?></p>
               </div>
             </li>
-            <li class="why-item">
-              <span class="why-n">02</span>
-              <div class="why-content">
-                <h3>Antecipação, não remediação</h3>
-                <p>Identificamos e eliminamos riscos antes que se tornem problemas. Não chegamos depois do incêndio. Chegamos antes da faísca.</p>
-              </div>
-            </li>
-            <li class="why-item">
-              <span class="why-n">03</span>
-              <div class="why-content">
-                <h3>Sócio responsável em cada conta</h3>
-                <p>Nenhum cliente é terceirizado para analistas júnior sem supervisão. Cada conta tem um sócio dedicado e acesso direto.</p>
-              </div>
-            </li>
-            <li class="why-item">
-              <span class="why-n">04</span>
-              <div class="why-content">
-                <h3>Entrega rastreável e auditável</h3>
-                <p>Cada relatório, diagnóstico e parecer é documentado, versionado e auditável. Transparência total, sem caixas-pretas.</p>
-              </div>
-            </li>
+            <?php endforeach; endif; ?>
           </ul>
         </div>
 
@@ -825,11 +985,64 @@
             <div class="diamond"></div>
           </div>
           <div class="why-kpi">
-            <span>+10</span>
-            <span>Anos de mercado<br>no mid-market brasileiro</span>
+            <span><?php echo htmlspecialchars($home['why_bravau']['metric_val'] ?? ''); ?></span>
+            <span><?php echo nl2br(htmlspecialchars($home['why_bravau']['metric_label'] ?? '')); ?></span>
           </div>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════
+       QUEM SOMOS
+  ═══════════════════════════════ -->
+  <section class="about-section" id="quem-somos">
+    <div class="container">
+      <div class="two-col">
+        <div>
+          <span class="eyebrow"><?php echo htmlspecialchars($home['about']['left_eyebrow'] ?? 'Quem Somos'); ?></span>
+          <h2 class="section-h2"><?php echo htmlspecialchars($home['about']['left_title'] ?? ''); ?></h2>
+          <?php 
+          $paragraphs = explode("\n", $home['about']['left_body'] ?? '');
+          foreach ($paragraphs as $p) {
+              $p = trim($p);
+              if ($p !== '') echo '<p class="body-p">' . htmlspecialchars($p) . '</p>';
+          }
+          ?>
+        </div>
+        <div class="col-divider">
+          <span class="eyebrow"><?php echo htmlspecialchars($home['about']['right_eyebrow'] ?? 'Diferencial'); ?></span>
+          <h2 class="section-h2"><?php echo htmlspecialchars($home['about']['right_title'] ?? ''); ?></h2>
+          <?php 
+          $paragraphs = explode("\n", $home['about']['right_body'] ?? '');
+          foreach ($paragraphs as $p) {
+              $p = trim($p);
+              if ($p !== '') echo '<p class="body-p">' . htmlspecialchars($p) . '</p>';
+          }
+          ?>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════
+       BLOG
+  ═══════════════════════════════ -->
+  <section class="blog-section" id="blog">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Artigos & Insights</span>
+        <h2>Conhecimento que gera valor contábil.</h2>
+      </div>
+      <div class="blog-grid" id="blog-posts-container">
+        <!-- Cards de blog serão inseridos dinamicamente aqui -->
+      </div>
+      <div style="text-align: center; margin-top: 48px;">
+        <a href="blog.php" class="btn-primary" style="display: inline-block;">Ver todos os artigos</a>
       </div>
     </div>
   </section>
@@ -840,14 +1053,13 @@
   ═══════════════════════════════ -->
   <section class="cta-section" id="contato">
     <div class="container">
-      <span class="eyebrow">Próximo Passo</span>
-      <h2>A conversa é gratuita.<br>O diagnóstico, revelador.</h2>
-      <p class="cta-lead">Diagnóstico sem compromisso. Você sai da reunião sabendo exatamente onde estão os riscos, e o que fazer com eles.</p>
+      <span class="eyebrow"><?php echo htmlspecialchars($home['cta']['eyebrow'] ?? 'Próximo Passo'); ?></span>
+      <h2><?php echo nl2br(htmlspecialchars($home['cta']['title'] ?? '')); ?></h2>
+      <p class="cta-lead"><?php echo htmlspecialchars($home['cta']['lead'] ?? ''); ?></p>
       <div class="cta-btns">
-        <a href="mailto:contato@bravau.com.br" class="btn-primary">Agendar diagnóstico</a>
-        <a href="tel:+55" class="btn-ghost">Fale com um especialista</a>
+        <a href="https://wa.me/5562<?php echo preg_replace('/\D/', '', $home['contact']['phone'] ?? ''); ?>?text=Olá,%20gostaria%20de%20falar%20com%20um%20especialista%20da%20Bravau." target="_blank" class="btn-primary">Fale no WhatsApp</a>
       </div>
-      <p class="cta-note">Sem compromisso. Sem letra miúda. Apenas uma conversa com quem entende do assunto.</p>
+      <p class="cta-note"><?php echo htmlspecialchars($home['cta']['note'] ?? ''); ?></p>
     </div>
   </section>
 
@@ -867,21 +1079,20 @@
         <div class="footer-col">
           <h4>Serviços</h4>
           <ul>
-            <li><a href="#">Reforma Tributária</a></li>
-            <li><a href="#">Estruturação do Negócio</a></li>
-            <li><a href="#">Auditoria Consultiva</a></li>
-            <li><a href="#">Implantação de ERP</a></li>
-            <li><a href="#">Gestão para Criação de Valor</a></li>
+            <?php if (!empty($home['services'])): foreach ($home['services'] as $svc): ?>
+            <li><a href="#servicos"><?php echo htmlspecialchars($svc['title'] ?? ''); ?></a></li>
+            <?php endforeach; endif; ?>
           </ul>
         </div>
 
         <div class="footer-col">
           <h4>Contato</h4>
           <ul>
-            <li><a href="mailto:contato@bravau.com.br">contato@bravau.com.br</a></li>
-            <li><a href="#">Goiânia, GO</a></li>
+            <li><a href="mailto:<?php echo htmlspecialchars($home['contact']['email'] ?? ''); ?>"><?php echo htmlspecialchars($home['contact']['email'] ?? ''); ?></a></li>
+            <li><a href="https://wa.me/5562<?php echo preg_replace('/\D/', '', $home['contact']['phone'] ?? ''); ?>" target="_blank">WhatsApp: <?php echo htmlspecialchars($home['contact']['phone'] ?? ''); ?></a></li>
+            <li><a href="#"><?php echo htmlspecialchars($home['contact']['address'] ?? ''); ?></a></li>
           </ul>
-          <a href="#contato" class="btn-primary" style="margin-top: 24px; display: inline-block;">Diagnóstico gratuito</a>
+
         </div>
 
       </div>
@@ -894,6 +1105,50 @@
       </div>
     </div>
   </footer>
+
+  <!-- Scripts para Blog e Roteamento -->
+  <script>
+    let blogPosts = [];
+
+    // Carrega os posts do JSON
+    function loadBlogPosts() {
+      fetch('blog.json')
+        .then(response => response.json())
+        .then(data => {
+          blogPosts = data;
+          renderBlogGrid();
+        })
+        .catch(err => console.error("Erro ao carregar blog:", err));
+    }
+
+    // Renderiza os 3 posts mais recentes no grid com detecção de localhost para fallback
+    function renderBlogGrid() {
+      const container = document.getElementById('blog-posts-container');
+      if (!container) return;
+      
+      const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      
+      // Mostrar apenas os 3 posts mais recentes na home
+      const recentPosts = blogPosts.slice(0, 3);
+      
+      container.innerHTML = recentPosts.map(post => {
+        // Fallback local caso o servidor de desenvolvimento não suporte mod_rewrite (.htaccess)
+        const postUrl = isLocalhost ? `post.php?slug=${post.slug}` : `artigo/${post.slug}`;
+        
+        return `
+          <div class="blog-card" style="background-image: linear-gradient(rgba(26, 26, 26, 0.9), rgba(26, 26, 26, 0.95)), url('${post.image}'); background-size: cover; background-position: center;">
+            <span class="blog-date">${post.date}</span>
+            <h3 class="blog-title">${post.title}</h3>
+            <p class="blog-excerpt">${post.excerpt}</p>
+            <a href="${postUrl}" class="blog-link">Ler artigo →</a>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Inicia o carregamento dinâmico
+    window.addEventListener('DOMContentLoaded', loadBlogPosts);
+  </script>
 
 </body>
 </html>

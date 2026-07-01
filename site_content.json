@@ -1,0 +1,109 @@
+{
+  "top_banner": {
+    "title": "Auditores Certificados pelo Banco Central e CVM",
+    "standards": "IFRS · CPC · US GAAP"
+  },
+  "hero": {
+    "title": "Sua empresa tem mais custo\ndo que deve ter.",
+    "lead": "Gestão contábil, financeira e tributária para proteger e multiplicar valor.",
+    "kpi_label": "Auditores Certificados pelo \n Banco Central e CVM"
+  },
+  "metrics": {
+    "m1_val": "−68%",
+    "m1_label": "Inconsistências contábeis",
+    "m1_desc": "Redução média após reestruturação contábil e implantação de controles internos nos primeiros 12 meses.",
+    "m2_val": "+37%",
+    "m2_label": "Eficiência tributária",
+    "m2_desc": "Ganho médio por meio de planejamento tributário alinhado à Reforma e ao perfil fiscal de cada cliente.",
+    "m3_val": "0",
+    "m3_label": "Ressalvas em auditoria",
+    "m3_desc": "100% dos clientes aprovados sem ressalvas nos últimos três anos. Conformidade não é promessa, é entrega."
+  },
+  "problem_solution": {
+    "prob_eyebrow": "O Problema",
+    "prob_title": "Auditoria cara, demorada e cheia de ressalvas não é azar. É falta de preparação.",
+    "prob_body": "Empresas de médio porte operam com a contabilidade do dia a dia funcional, mas sem os controles que uma auditoria séria exige. Quando o Fisco, um investidor ou um processo de due diligence chega, o problema aparece.\nA diferença entre uma empresa preparada e uma em crise é, quase sempre, uma questão de antecipação.",
+    "sol_eyebrow": "A Solução",
+    "sol_title": "Auditoria tranquila não é sorte. É método.",
+    "sol_body": "A Bravau atua antes do problema, estruturando processos, adequando demonstrações e antecipando riscos. Nossa metodologia combina profundidade de Big Four com a agilidade que o médio mercado exige.\nCada entrega é documentada, rastreável e alinhada aos padrões IFRS, CPC e US GAAP."
+  },
+  "services": [
+    {
+      "label": "Estratégia",
+      "title": "Adequação à Reforma Tributária",
+      "tagline": "Prepare-se antes que seja tarde.",
+      "body": "A Reforma Tributária já está em vigor. Empresas que não se adequaram vão pagar mais. Mapeamos o impacto no seu modelo de negócio e conduzimos a transição com precisão e sem interrupção operacional."
+    },
+    {
+      "label": "Fundação",
+      "title": "Estruturação do Negócio",
+      "tagline": "Base sólida para crescer certo.",
+      "body": "Constituição societária, governança financeira e compliance regulatório. Construímos a estrutura que sustenta o crescimento sem atalhos que viram problemas depois."
+    },
+    {
+      "label": "Conformidade",
+      "title": "Auditoria Consultiva",
+      "tagline": "Sem surpresas.",
+      "body": "Auditoria que vai além do parecer. Identificamos riscos contábeis, fortalecemos controles internos e preparamos sua empresa para due diligence, fiscalização ou captação."
+    },
+    {
+      "label": "Tecnologia",
+      "title": "Implantação de ERP",
+      "tagline": "Seu sistema trabalhando por você.",
+      "body": "Seleção, parametrização e implantação de ERP alinhado aos seus processos contábeis e fiscais. Integração com relatórios gerenciais e obrigações acessórias. Sem retrabalho depois do go-live."
+    },
+    {
+      "label": "Crescimento",
+      "title": "Gestão para Criação de Valor",
+      "tagline": "Lucro virou riqueza real.",
+      "body": "Transformamos resultados financeiros em valor patrimonial real. Valuation, reestruturação de capital, planejamento de saída e estratégia de investimento para o sócio que quer crescer com solidez."
+    }
+  ],
+  "why_bravau": {
+    "eyebrow": "Por que Bravau",
+    "title": "Somos seu parceiro estratégico.",
+    "metric_val": "+10",
+    "metric_label": "Anos de mercado\nno mid-market brasileiro",
+    "differentials": [
+      {
+        "n": "01",
+        "title": "Certificação de alto nível",
+        "desc": "Habilitados pelo Banco Central e CVM. Metodologia IFRS, CPC e US GAAP aplicada a empresas do médio mercado brasileiro."
+      },
+      {
+        "n": "02",
+        "title": "Antecipação, não remediação",
+        "desc": "Identificamos e eliminamos riscos antes que se tornem problemas. Não chegamos depois do incêndio. Chegamos antes da faísca."
+      },
+      {
+        "n": "03",
+        "title": "Sócio responsável em cada conta",
+        "desc": "Nenhum cliente é terceirizado para analistas júnior sem supervisão. Cada conta tem um sócio dedicado e acesso direto."
+      },
+      {
+        "n": "04",
+        "title": "Entrega rastreável e auditável",
+        "desc": "Cada relatório, diagnóstico e parecer é documentado, versionado e auditável. Transparência total, sem caixas-pretas."
+      }
+    ]
+  },
+  "about": {
+    "left_eyebrow": "Quem Somos",
+    "left_title": "Padrão Big Four. Agilidade do mid-market.",
+    "left_body": "A Bravau Auditores foi fundada por profissionais com passagens consolidadas pelas maiores firmas de auditoria e consultoria do mundo. Nascemos com a convicção de que o médio mercado brasileiro merece o mesmo rigor técnico e governança aplicados a corporações globais, mas sem a burocracia ou o distanciamento das grandes estruturas.\nNossa operação é ágil, direta e focada em resultados práticos que geram valor patrimonial real para os sócios.",
+    "right_eyebrow": "Diferencial",
+    "right_title": "Sócio sênior presente em todas as etapas.",
+    "right_body": "Ao contrário do modelo tradicional onde o atendimento é de responsabilidade de analistas juniores, na Bravau cada conta é liderada e acompanhada diretamente por um sócio sênior. Isso garante tomadas de decisão rápidas, diagnósticos precisos e segurança em todas as entregas contábeis e fiscais."
+  },
+  "cta": {
+    "eyebrow": "Próximo Passo",
+    "title": "A conversa é gratuita.\nO diagnóstico, revelador.",
+    "lead": "Diagnóstico sem compromisso. Você sai da reunião sabendo exatamente onde estão os riscos, e o que fazer com eles.",
+    "note": "Sem compromisso. Sem letra miúda. Apenas uma conversa com quem entende do assunto."
+  },
+  "contact": {
+    "email": "contato@bravau.com.br",
+    "phone": "(62) 99288-8257",
+    "address": "Goiânia, GO"
+  }
+}

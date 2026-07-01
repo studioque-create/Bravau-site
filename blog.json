@@ -1,0 +1,26 @@
+[
+  {
+    "date": "01 Jul 2026",
+    "slug": "impactos-contabeis-da-reforma-tributaria-no-medio-mercado",
+    "title": "Impactos Contábeis da Reforma Tributária no Médio Mercado",
+    "excerpt": "Um guia prático sobre a transição operacional do IVA e as estratégias indispensáveis para evitar a bitributação em 2026.",
+    "image": "bravau_hero_bg.jpg",
+    "body": "A Reforma Tributária no Brasil traz mudanças profundas na forma como as empresas apuram e recolhem seus tributos. A unificação de impostos sob o modelo do IVA (Imposto sobre Valor Agregado) exige uma reestruturação imediata no setor contábil e de tecnologia das empresas de médio porte.\n\nPara o mid-market, o maior desafio está na transição operacional: gerenciar os créditos acumulados das regras antigas enquanto se adapta às novas alíquotas do IBS e da CBS. Empresas que não iniciarem o mapeamento de impactos em seus modelos de negócios correm o risco de bitributação ou perda de competitividade já no início do período de transição.\n\nRecomendamos realizar um diagnóstico de fluxo de caixa projetado, revisar as classificações fiscais de entradas e saídas e preparar a equipe contábil para as novas obrigações acessórias. A adequação antecipada não é apenas uma obrigação fiscal, mas uma vantagem estratégica de mercado."
+  },
+  {
+    "date": "24 Jun 2026",
+    "slug": "due-diligence-como-preparar-sua-empresa-para-captacao-ou-venda",
+    "title": "Due Diligence: Como Preparar sua Empresa para Captação ou Venda",
+    "excerpt": "Auditoria interna consultiva e governança contábil como fatores críticos de sucesso na precificação de empresas do mid-market.",
+    "image": "bravau_hero_bg.jpg",
+    "body": "No momento de atrair um fundo de investimento (Private Equity) ou estruturar uma fusão e aquisição (M&A), a governança contábil é o fator decisivo para a precificação da empresa. O processo de Due Diligence analisa com lupa os últimos 5 anos de obrigações contábeis, trabalhistas, fiscais e societárias.\n\nInconsistências em relatórios contábeis, passivos trabalhistas ocultos ou falhas na classificação de estoque geram desconfiança nos investidores e resultam diretamente em uma redução no valuation da empresa (descontos de preço) ou até no cancelamento da transação.\n\nPreparar-se com uma auditoria consultiva prévia permite identificar e sanar essas brechas com antecedência. Ter uma contabilidade limpa, rastreável e auditada sob padrões CPC/IFRS transmite solidez e dá aos sócios o poder de negociação necessário para fechar a transação sob o melhor valor possível."
+  },
+  {
+    "date": "10 Jun 2026",
+    "slug": "a-importancia-da-parametrizacao-na-implantacao-de-erp",
+    "title": "A Importância da Parametrização na Implantação de ERP",
+    "excerpt": "Erros comuns em integrações de sistemas de gestão que geram passivos fiscais ocultos e retrabalho contábil recorrente.",
+    "image": "bravau_hero_bg.jpg",
+    "body": "A implantação de um sistema ERP (como SAP, Totvs ou Oracle) promete integrar e automatizar todos os processos operacionais de uma empresa. Contudo, sem uma parametrização contábil e fiscal adequada, o sistema automatiza também as falhas, gerando problemas em escala.\n\nA maioria dos erros pós-go-live ocorre porque a configuração das matrizes fiscais e regras de impostos é relegada à equipe de TI, sem supervisão de auditores e especialistas fiscais. O resultado são notas fiscais emitidas com alíquotas erradas, relatórios gerenciais que não batem com o SPED e retrabalho manual constante da equipe financeira.\n\nUma parametrização de ERP segura requer o desenho prévio de processos contábeis detalhados, o mapeamento exato de todas as operações de entrada/saída da empresa e testes exaustivos antes do lançamento. Investir tempo na configuração correta evita autuações fiscais futuras e garante a integridade dos dados gerenciais para a tomada de decisões."
+  }
+]
